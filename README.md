@@ -1,1 +1,1 @@
-# bst-260-2025F-team4
+# BST260 2025 final project for Team 4 (aka Baes Pairs)

@@ -1,1 +1,64 @@
-Initial outline.txt update
+
+Outline Final Project - BST 260 (Team 4)
+#Members: Tanvi Gaitonde, Gabrielle Gonzalez, Allen Gu, Camila Guetter
+
+#Dataset to be used: NHANES (2009-2012)
+
+#Research questions:
+How can we use RShiny to help visualize trends and associations of lifestyle patterns among individuals included in the National Health and Nutrition Examination Survey (NHANES) data set in the United States between 2009-2012?
+
+
+#Analysis plan:
+Good data visualization is an important tool for identifying and summarizing associations and interactions within health-related data. We propose to develop an interactive data exploration application using RShiny, which will allow users to dynamically explore relationships between lifestyle patterns and health indicators in the NHANES dataset. The RShiny app will integrate data visualization, summary statistics, and customizable filtering options to facilitate exploration of population-level associations. 
+
+In order to accomplish this, our analysis will include identifying relevant lifestyle and health indicator variables within NHANES, cleaning and wrangling data, exploring missing data and mitigation strategies as needed (eg., complete case analysis versus imputation method), and finally presenting relevant plots and summary statistics within the RShiny application. Important covariates such as age, sex, race/ethnicity, education, and socioeconomic status will be included for potential stratification of patterns across different subgroups. Appropriate visualization strategies will be chosen to account for different variable types (eg., continuous, categorical, binary, time trends, etc.), and visualization techniques such as measures of spread and smoothing may be incorporated where necessary.
+
+#Variables of interest (initial, might be updated later):
+Lifestyle variables: SleepHrsNight, PhysActive, AlcoholDay, AlcoholYear, SmokeNow, SmokeNow, Smoke100, Smoke100, HardDrugs
+Indicators of health: BMI, BPSysAve, BPDiaAve, TotChol, Diabetes
+Covariates: Gender, Age, AgeDecade, Race1, Education, HHIncome
+
+#Team member responsibilities:
+Tanvi Gaitonde: wrangle dataset, literature review for introduction and discussion, write a portion of final report
+Gabrielle Gonzalez: wrangle dataset, visualization, write a portion of final report
+Allen Gu: set up GitHub repository, establish boilerplate code for the backbone of the RShiny app, write a portion of final report
+Camila Guetter: start outline.txt document, wrangle dataset, visualization plots, write a portion of final report
+**Concrete assignments of report section authors will be determined after initial outline is approved and wrangling and initial visualization is completed
+
+#Weekly breakdown of tasks and deliverables:
+Oct 25 -  Oct 31:
+Set up GitHub repository
+Post the repository URL in the TF’s Slack channel
+Work on outline.txt, and submit for review
+
+Nov 1 - Nov 7:
+Write introduction of the report
+Update individual contribution files (with hours and tasks)
+
+Nov 8 -  Nov 14:
+Work on any revisions to outline.txt based on TF feedback and submit by Nov 12
+Write methods of the report (after TF feedback)
+If no significant revisions needed, start working on data analysis
+Update individual contribution files (with hours and tasks)
+
+Nov 15 - Nov 21:
+Data analysis
+Update individual contribution files (with hours and tasks)
+
+Nov 22 - Nov 28:
+Data analysis
+Update -individual contribution files (with hours and tasks)
+
+Nov 29 - Dec 5:
+Data analysis
+Write results and discussion of the report
+Update individual contribution files (with hours and tasks)
+
+Dec 6 - Dec 12:
+Schedule oral presentation date for following week
+Put together slides for oral presentation
+Update individual contribution files (with hours and tasks)
+
+Dec 13 - Dec 19:
+Present between December 16-19
+Submit final project by December 15

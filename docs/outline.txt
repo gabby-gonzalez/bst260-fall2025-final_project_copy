@@ -1,1 +1,29 @@
 Initial outline.txt update
+
+Abstract (150-200 words)
+
+Purpose: The abstract provides a concise summary of your project, including its objectives, key findings, and significance. Write this section last, after completing all other sections, to accurately reflect your project’s focus and main results.
+Guidelines: Limit this section to 150-200 words. Briefly outline the purpose of your study, the approach you used, and the primary results and conclusions. The abstract should be clear, succinct, and give readers an immediate understanding of what your project entails.
+Introduction (500-600 words)
+
+Purpose: The introduction sets the stage for your project, presenting the background and rationale for your analysis. Explain why the topic is significant and justify your choice of NHANES vs. NHANESraw.
+Guidelines: Start with a broad overview of the topic, gradually narrowing down to your specific focus. Conclude with a clear statement of your research questions, hypotheses, or objectives. Use 2-3 paragraphs to establish a solid foundation for the rest of the paper.
+Methods (600-700 words)
+
+Purpose: This section details the data sources, methods, and analytical techniques you used to conduct your analysis. It should be specific enough that someone else could replicate your study using the same resources and approach.
+Guidelines: Describe the NHANES dataset version you used and justify your choice. Outline your approach for cleaning and analyzing the data, including any statistical or computational methods applied. Clearly explain any assumptions or limitations in your approach, particularly regarding missing data handling.
+Results (500-600 words)
+
+Purpose: The results section presents the main findings of your analysis without interpretation. Organize the data logically to highlight key insights, using tables, figures, and charts to illustrate trends and comparisons.
+Guidelines: For each result, briefly describe it and refer to relevant visuals or tables where appropriate. Do not provide explanations or discuss implications in this section; focus only on presenting the findings clearly and accurately.
+Use of AI Tools
+
+Students are welcome to use AI tools as a complementary aid, but they must clearly state in their report where AI was used (e.g., text generation, editing, data analysis suggestions, or AI-assisted conclusions). AI should serve as a productivity and learning tool, not as the primary author of the report.
+
+Discussion (600-700 words)
+
+Purpose: In the discussion, interpret the significance of your findings, explore potential implications, and relate the results back to your initial research questions or hypotheses. This section allows you to discuss any patterns, unexpected findings, or limitations and suggest possible future research.
+Guidelines: Analyze your results in the context of your research question and relevant health literature. Consider what your findings reveal, any limitations they may have (particularly regarding missing data or survey design), and how they might impact future work or policy. End with a brief conclusion summarizing your main insights.
+Your final report should be professionally formatted, with each section clearly labeled and referenced. Aim for clarity, precision, and a well-organized presentation of your analysis.
+
+Total Word Count: Approximately 2,500-3,000 words.

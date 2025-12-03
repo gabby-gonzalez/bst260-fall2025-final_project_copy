@@ -1,14 +1,8 @@
-
-library(tidyverse)
-library(ggplot2)
 library(shiny)
-
-
+library(tidyverse)
 library(NHANES)
 
-dat<-NHANES
-dat$Gender
-
+str(NHANES)
 
 ui <- fluidPage(
   titlePanel("Clinical Biomarkers"),
@@ -24,7 +18,9 @@ ui <- fluidPage(
           "Testosterone" = "Testosterone"
         ),
         selected = "BPSysAve"
-      )
+      ),
+      sliderInput("ageRange", "Age Range", min = 20, max = 80, value = c(20, 80)),
+      checkboxInput("addSmooth", "Show Trend Line", value = TRUE)
     ),
     mainPanel(
       plotOutput("bpPlot")
@@ -44,55 +40,75 @@ server <- function(input, output, session) {
       labels = c("Normal", "Stage 1 HTN")
     ),
     TotChol = tibble(
-      cutoff = c(200, 240),
-      labels = c("Desirable", "Borderline High")
+      cutoff = c(20, 24),
+      labels = c("Normal", "High")
     ),
     Testosterone = tibble(
-      cutoff = c(300, 1000),   # sample values—replace with your own
+      cutoff = c(300, 1000),   # replace with actual clinical cutoffs
       labels = c("Low", "Normal")
     )
   )
+  
   output$bpPlot <- renderPlot({
     
-    df <- dat %>%
+    # Filter data by selected biomarker and age range
+    df <- NHANES %>%
       drop_na(.data[[input$yvar]]) %>%
-      mutate(Gender = stringr::str_to_title(Gender))
-      
+      mutate(Gender = stringr::str_to_title(Gender)) %>%
+      filter(Age >= input$ageRange[1], Age <= input$ageRange[2])
     
-    # cutoffs 
+    # Get cutoffs for selected biomarker
     co <- biomarker_cutoffs[[input$yvar]]
     
     # Base plot
     p <- df %>%
       ggplot(aes(x = Age, y = .data[[input$yvar]], color = Gender)) +
-      geom_point(alpha = 0.3) +
+      geom_point(alpha = 0.5) +
       theme_classic() +
+      
       labs(y = input$yvar) +
+      theme(legend.position="none",
+            axis.title.x = element_text(size = 15, face = "bold"),
+            axis.title.y = element_text(size = 15, face = "bold"),
+            strip.text = element_text(size = 18, face="bold"))+
       facet_wrap(~ Gender, scales = "free")
     
-    # Add horizontal cutoff lines
+    # Add trend line if selected
+    if (input$addSmooth) {
+      p <- p + geom_smooth(se = FALSE, color = "blue")
+    }
+    
+    # Add horizontal cutoff lines and labels
     if (!is.null(co)) {
-      p <- p + 
-        geom_hline(aes(yintercept = cutoff), data = co, linetype = 2, color = "red")
-      y_ranges <- c(-Inf, co$cutoff, Inf)
+      # Cutoff lines
+      p <- p + geom_hline(aes(yintercept = cutoff), data = co, linetype = 2, color = "black")
       
+      # Labels
+      y_ranges <- c(-Inf, co$cutoff, Inf)
       co_labs <- tibble(
         y = sapply(seq_along(co$labels), function(i) mean(c(y_ranges[i], y_ranges[i+1]), na.rm = TRUE)),
         label = co$labels
       )
-      p <- p +
-        geom_text(
-          data = co_labs,
-          aes(x = min(df$Age, na.rm = TRUE), y = y, label = label),
-          hjust = -0.1,
-          vjust = 0,
-          inherit.aes = FALSE,
-          size = 4,
-          color = "black"
-        )
       
+      p <- p + geom_label(
+        data = co_labs,
+        aes(x = min(df$Age, na.rm = TRUE), y = y, label = label),
+        hjust = 0,
+        vjust = 0,
+        inherit.aes = FALSE,
+        size = 4,
+        fill = "grey90", 
+        fontface="bold",
+        color = "black"
+      )
     }
     
+    p
+  })
+  
+}
+
+shinyApp(ui, server)
     p
   })
 }

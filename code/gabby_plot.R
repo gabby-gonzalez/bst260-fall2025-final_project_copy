@@ -32,23 +32,23 @@ server <- function(input, output, session) {
   
   biomarker_cutoffs <- list(
     BPSysAve = tibble(
-      cutoff = c(120, 130, 140, 180),
+      cutoff = c(120, 130, 140,Inf),
       labels = c("Normal", "Elevated", "Stage 1 Hypertension", "Stage 2 Hypertension")
     ),
     BPDiaAve = tibble(
-      cutoff = c(80, 90),
-      labels = c("Normal", "Stage 1 HTN")
+      cutoff = c(80, 90, Inf),
+      labels = c("Normal", "Stage 1 Hypertension", "Stage 2 Hypertension")
     ),
     TotChol = tibble(
-      cutoff = c(20, 24),
-      labels = c("Normal", "High")
+      cutoff = c(5.2, 6.2, Inf),
+      labels = c("Normal", "Borderline High", "High")
     ),
     Testosterone = tibble(
-      cutoff = c(300, 1000),   # replace with actual clinical cutoffs
-      labels = c("Low", "Normal")
+      cutoff = c(270, 1070, Inf),
+      labels = c("Low", "Normal", "High")
     )
   )
-  
+ #, 6, 86, Inf 
   output$bpPlot <- renderPlot({
     
     # Filter data by selected biomarker and age range
@@ -70,7 +70,8 @@ server <- function(input, output, session) {
       theme(legend.position="none",
             axis.title.x = element_text(size = 15, face = "bold"),
             axis.title.y = element_text(size = 15, face = "bold"),
-            strip.text = element_text(size = 18, face="bold"))+
+            strip.text = element_text(size = 18, face="bold"),
+            axis.text=element_text(size = 15))+
       facet_wrap(~ Gender, scales = "free")
     
     # Add trend line if selected
@@ -109,10 +110,8 @@ server <- function(input, output, session) {
 }
 
 shinyApp(ui, server)
-    p
-  })
-}
 
-shinyApp(ui, server)
+
+
 
 

@@ -4,16 +4,6 @@ library(NHANES)
 
 str(NHANES)
 
-p <- df %>%
-  ggplot(aes(x = Age, y = .data[[input$yvar]])) +
-  geom_density_2d_filled(alpha = 0.8) +   # filled density
-  geom_point(alpha = 0.2, size = 1) +     # optional raw points
-  facet_wrap(~ Gender, scales = "free") +
-  theme_bw() +
-  labs(y = input$yvar, fill = "Density")
-
-
-
 
 # ------------------------
 # UI
@@ -67,11 +57,12 @@ server <- function(input, output, session) {
     df <- NHANES %>%
       drop_na(.data[[input$yvar]], Gender, Race1) %>%
       mutate(Gender = str_to_title(Gender)) %>%
-      filter(Age >= input$ageRange[1], Age <= input$ageRange[2])
+      filter(Age >= input$ageRange[1], Age <= input$ageRange[2]) %>%
+      rename(Race=Race1)
   
     
     # Decide color variable
-    color_var <- if (input$raceColor) "Race1" else "Gender"
+    color_var <- if (input$raceColor) "Race" else "Gender"
     
     
     #specify title

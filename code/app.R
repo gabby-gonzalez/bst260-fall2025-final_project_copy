@@ -6,6 +6,8 @@ library(ggplot2)
 
 data("NHANES")
 
+#ShinyApp plots on Physical Activity and BMI (with different visualization options
+)
 # Choices for PhysActiveDays (0–7)
 pa_days_choices <- sort(unique(NHANES$PhysActiveDays[!is.na(NHANES$PhysActiveDays)]))
 
@@ -42,7 +44,7 @@ ui <- fluidPage(
         selected = "Gender"
       ),
       
-      # Toggle between boxplot and jitter when BMI is continuous
+      # Toggle between boxplot and jitter (for continuous BMI)
       conditionalPanel(
         condition = "input.yvar == 'BMI'",
         radioButtons(
@@ -56,7 +58,7 @@ ui <- fluidPage(
         )
       ),
       
-      # Let user pick which physical activity days to include
+      # Ability to pick which number of physical activity days per week to include (0-7)
       conditionalPanel(
         condition = "input.xvar == 'PhysActiveDays'",
         checkboxGroupInput(
@@ -110,7 +112,7 @@ server <- function(input, output, session) {
   output$pa_bmi_plot <- renderPlot({
     df <- plot_data()
     
-    # ----- Continuous BMI -----
+    # Continuous BMI
     if (input$yvar == "BMI") {
       
       if (input$xvar == "PhysActive") {
@@ -170,7 +172,7 @@ server <- function(input, output, session) {
       }
       
     } else {
-      # ----- BMI Category (stacked bars) -----
+      # BMI Category (stacked bars)
       if (input$xvar == "PhysActive") {
         p <- ggplot(df, aes(x = PhysActive, fill = BMI_WHO)) +
           geom_bar(position = "fill") +

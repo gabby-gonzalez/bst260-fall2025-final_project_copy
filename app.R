@@ -3,6 +3,8 @@ library(shiny)
 library(NHANES)
 library(dplyr)
 library(ggplot2)
+library(plotly)
+library(heatmaply)
 
 data("NHANES")
 

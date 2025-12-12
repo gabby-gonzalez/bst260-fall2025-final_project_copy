@@ -2,9 +2,23 @@ Tanvi Gaitonde
 BST260 Final Project
 
 Individual Contributions
+- Code: 
+  - Data exploration and wrangling for covariates that would be most appropriate to showcase heatmap functionality. 
+  - Focusing on categorical covariates of age and education, along with a categorical output of household income, I created several heatmaps to showcase patterns between the inputs and output.
+  - For the covariate age, I created plots using age by decade, age by month, and continuous age, before sticking to the first and last for ease of user interpretability in the heatmaps. 
+  - Creation of facets by gender, race, and both gender and race to better view patterns within each category.
+  - Creation of shiny shell (ui and server) for user interactivity and heatmap output, respectively.
+  - Creation of hover functionality using shiny, which outputs the data in each heatmap datapoint when users hover over the heatmap.
+- Final Report: 
+  - I wrote the initial paragraphs of the methods section, describing the data exploration, wrangling, coding, and shiny app creation.
+  - For the methods, results, and discussion section, I wrote in depth explanations regarding the creation, key findings, and trend interpretations from the heatmaps. 
+- Administrative Items: created shared google files, took meeting notes
 
 Weekly Hours Spent on Project
-- 1hr/week on meetings from Weeks 11-15 (5 weeks)
-[will talk about weekly hours here]
-
+- 1hr/week on meetings from Weeks 11-15 (total: 5 hours)
+- Weeks 11-13: 1hr/week on data exploration, wrangling, understanding RShiny (total 3 hours)
+- Week 14: 4 hours on data wranging, plot creation, converting ggplots to shiny app (total 4 hours)
+- Week 15: 3 hours on final code clean-up, writing final report (3 hours)
 - Total Time Spent on Project: approx. 15 hours
+
+Overall: I found this a highly valuable experience in terms of learning a new tool (Shiny) for data visualization and interactive UI purposes. 

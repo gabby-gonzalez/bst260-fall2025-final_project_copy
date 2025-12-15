@@ -13,8 +13,8 @@ Specific Contributions to the Project:
 5. Wrote the sections of the Methods, Results, and Discussion part of the report related to the physical activity–BMI visualizations and contributed to reviewing and editing the final report for clarity and coherence.
 6. Assisted with project coordination, including scheduling group meetings and facilitating communication among team members (a task done by all).
 
-Hours Spent on Project, By Week (total: approximately 15 hours): 
-- Weeks 11–15: approximately 1 hour per week attending group meetings and coordinating project tasks (total: 5 hours).
+Hours Spent on Project, By Week (total: approximately 16 hours):
+- Weeks 9,11,12,13,14,15: approximately 1 hour per week attending group meetings and coordinating project tasks (total: 6 hours).
 - Week 11: approximately 2.5 hours exploring the NHANES dataset, performing data wrangling, and generating preliminary visualizations using ggplot2.
 - Week 12: approximately 3 hours studying and reviewing Shiny applications, including their capabilities for data exploration and visualization, and beginning the conversion of static plots into interactive Shiny visualizations (Thanksgiving week).
 - Week 13: approximately 1 hour further developing Shiny plots, including construction of the Shiny shell (UI and server).

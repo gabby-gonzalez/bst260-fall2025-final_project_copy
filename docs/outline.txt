@@ -1,29 +1,63 @@
-Initial outline.txt update
+Outline Final Project - BST 260 (Team 4)
+#Members: Tanvi Gaitonde, Gabrielle Gonzalez, Allen Gu, Camila Guetter
 
-Abstract (150-200 words)
+#Dataset to be used: NHANES (2009-2012)
 
-Purpose: The abstract provides a concise summary of your project, including its objectives, key findings, and significance. Write this section last, after completing all other sections, to accurately reflect your project’s focus and main results.
-Guidelines: Limit this section to 150-200 words. Briefly outline the purpose of your study, the approach you used, and the primary results and conclusions. The abstract should be clear, succinct, and give readers an immediate understanding of what your project entails.
-Introduction (500-600 words)
+#Research questions:
+How can we use RShiny to help visualize trends and associations of lifestyle patterns among individuals included in the National Health and Nutrition Examination Survey (NHANES) data set in the United States between 2009-2012?
 
-Purpose: The introduction sets the stage for your project, presenting the background and rationale for your analysis. Explain why the topic is significant and justify your choice of NHANES vs. NHANESraw.
-Guidelines: Start with a broad overview of the topic, gradually narrowing down to your specific focus. Conclude with a clear statement of your research questions, hypotheses, or objectives. Use 2-3 paragraphs to establish a solid foundation for the rest of the paper.
-Methods (600-700 words)
 
-Purpose: This section details the data sources, methods, and analytical techniques you used to conduct your analysis. It should be specific enough that someone else could replicate your study using the same resources and approach.
-Guidelines: Describe the NHANES dataset version you used and justify your choice. Outline your approach for cleaning and analyzing the data, including any statistical or computational methods applied. Clearly explain any assumptions or limitations in your approach, particularly regarding missing data handling.
-Results (500-600 words)
+#Analysis plan:
+Good data visualization is an important tool for identifying and summarizing associations and interactions within health-related data. We propose to develop an interactive data exploration application using RShiny, which will allow users to dynamically explore relationships between lifestyle patterns and health indicators in the NHANES dataset. The RShiny app will integrate data visualization, summary statistics, and customizable filtering options to facilitate exploration of population-level associations. 
 
-Purpose: The results section presents the main findings of your analysis without interpretation. Organize the data logically to highlight key insights, using tables, figures, and charts to illustrate trends and comparisons.
-Guidelines: For each result, briefly describe it and refer to relevant visuals or tables where appropriate. Do not provide explanations or discuss implications in this section; focus only on presenting the findings clearly and accurately.
-Use of AI Tools
+In order to accomplish this, our analysis will include identifying relevant lifestyle and health indicator variables within NHANES, cleaning and wrangling data, exploring missing data and mitigation strategies as needed (eg., complete case analysis versus imputation method), and finally presenting relevant plots and summary statistics within the RShiny application. Important covariates such as age, sex, race/ethnicity, education, and socioeconomic status will be included for potential stratification of patterns across different subgroups. Appropriate visualization strategies will be chosen to account for different variable types (eg., continuous, categorical, binary, time trends, etc.), and visualization techniques such as measures of spread and smoothing may be incorporated where necessary.
 
-Students are welcome to use AI tools as a complementary aid, but they must clearly state in their report where AI was used (e.g., text generation, editing, data analysis suggestions, or AI-assisted conclusions). AI should serve as a productivity and learning tool, not as the primary author of the report.
+#Variables of interest (initial, might be updated later):
+Lifestyle variables: SleepHrsNight, PhysActive, AlcoholDay, AlcoholYear, SmokeNow, SmokeNow, Smoke100, Smoke100, HardDrugs
+Indicators of health: BMI, BPSysAve, BPDiaAve, TotChol, Diabetes
+Covariates: Gender, Age, AgeDecade, Race1, Education, HHIncome
 
-Discussion (600-700 words)
+#Team member responsibilities:
+Tanvi Gaitonde: wrangle dataset, literature review for introduction and discussion, write a portion of final report
+Gabrielle Gonzalez: wrangle dataset, visualization, write a portion of final report
+Allen Gu: set up GitHub repository, establish boilerplate code for the backbone of the RShiny app, write a portion of final report
+Camila Guetter: start outline.txt document, wrangle dataset, visualization plots, write a portion of final report
+**Concrete assignments of report section authors will be determined after initial outline is approved and wrangling and initial visualization is completed
 
-Purpose: In the discussion, interpret the significance of your findings, explore potential implications, and relate the results back to your initial research questions or hypotheses. This section allows you to discuss any patterns, unexpected findings, or limitations and suggest possible future research.
-Guidelines: Analyze your results in the context of your research question and relevant health literature. Consider what your findings reveal, any limitations they may have (particularly regarding missing data or survey design), and how they might impact future work or policy. End with a brief conclusion summarizing your main insights.
-Your final report should be professionally formatted, with each section clearly labeled and referenced. Aim for clarity, precision, and a well-organized presentation of your analysis.
+#Weekly breakdown of tasks and deliverables:
+Oct 25 -  Oct 31:
+Set up GitHub repository
+Post the repository URL in the TF’s Slack channel
+Work on outline.txt, and submit for review
 
-Total Word Count: Approximately 2,500-3,000 words.
+Nov 1 - Nov 7:
+Write introduction of the report
+Update individual contribution files (with hours and tasks)
+
+Nov 8 -  Nov 14:
+Work on any revisions to outline.txt based on TF feedback and submit by Nov 12
+Write methods of the report (after TF feedback)
+If no significant revisions needed, start working on data analysis
+Update individual contribution files (with hours and tasks)
+
+Nov 15 - Nov 21:
+Data analysis
+Update individual contribution files (with hours and tasks)
+
+Nov 22 - Nov 28:
+Data analysis
+Update -individual contribution files (with hours and tasks)
+
+Nov 29 - Dec 5:
+Data analysis
+Write results and discussion of the report
+Update individual contribution files (with hours and tasks)
+
+Dec 6 - Dec 12:
+Schedule oral presentation date for following week
+Put together slides for oral presentation
+Update individual contribution files (with hours and tasks)
+
+Dec 13 - Dec 19:
+Present between December 16-19
+Submit final project by December 15

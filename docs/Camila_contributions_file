@@ -1,0 +1,22 @@
+Individual Contributions File
+BST260 Final Project
+Student: Camila Guetter
+
+Reflection:
+This was a very interesting project to work on. Prior to this work, I had no experience with Shiny applications or their development. Through this process, I gained a practical understanding of how Shiny applications can be used to create interactive visualizations that enhance data exploration and interpretation beyond what is possible with static plots alone. I was also very happy to work with classmates from different programs and areas of interest, as it created a great environment for learning from one another.
+
+Specific Contributions to the Project:
+1. Explored the NHANES dataset to identify meaningful variables and relationships suitable for interactive visualization using Shiny.
+2. Proposed and developed the physical activity–BMI analysis, including stacked bar plots, boxplots, and jitter plots, as a core component of the application.
+3. Performed data wrangling and created initial static visualizations using ggplot2 to facilitate rapid iteration and troubleshooting prior to Shiny implementation.
+4. Designed and implemented the corresponding shiny shell (ui and server), translating static plots into interactive visualizations with reactive framework and user-controlled toggles. I created the first working Shiny plots for the project, which were used to guide group discussion, brainstorm additional plot types, and define the overall structure and scope of the application.
+5. Wrote the sections of the Methods, Results, and Discussion part of the report related to the physical activity–BMI visualizations and contributed to reviewing and editing the final report for clarity and coherence.
+6. Assisted with project coordination, including scheduling group meetings and facilitating communication among team members (a task done by all).
+
+Hours Spent on Project, By Week (total: approximately 16 hours):
+- Weeks 9,11,12,13,14,15: approximately 1 hour per week attending group meetings and coordinating project tasks (total: 6 hours).
+- Week 11: approximately 2.5 hours exploring the NHANES dataset, performing data wrangling, and generating preliminary visualizations using ggplot2.
+- Week 12: approximately 3 hours studying and reviewing Shiny applications, including their capabilities for data exploration and visualization, and beginning the conversion of static plots into interactive Shiny visualizations (Thanksgiving week).
+- Week 13: approximately 1 hour further developing Shiny plots, including construction of the Shiny shell (UI and server).
+- Week 14: approximately 1 hour refining my Shiny plots and adding additional reactive functionality beyond variable-type toggles (continuous/binary/categorical), including jitter/boxplot selection and filtering of specific number of physical activity days.
+- Week 15: approximately 2.5 hours writing sections of the final report (Methods, Results, and Discussion related to my plots) and contributing to the overall review and editing of the final report.

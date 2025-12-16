@@ -1,4 +1,3 @@
-
 Outline Final Project - BST 260 (Team 4)
 #Members: Tanvi Gaitonde, Gabrielle Gonzalez, Allen Gu, Camila Guetter
 

@@ -1,0 +1,26 @@
+Name: Allen Gu
+BST260 Group 4 final project
+Individual Contribution File
+
+# Reflection
+This was a very fun project overall. Although I have interacted with Shiny apps before, I have never made one myself. This project therefore created a perfect opportunity to design such an app, in a supported environment with feedback from the teaching associates and my peers. In addition to the mechanistic task of creating the app itself (and all the debugging/programming associated), it made me reflect on the importance of good data layout and plot design; the Shiny app also added the extra dimension of figuring out what sort of interactive tools are best to really capitalise on Shiny's potential. I also very much enjoyed working with my team, all of whom were very collaborative and all contributed equally to the final product.
+
+
+# Specific contributions
+- Project topic idea proposal and development
+- Work on the final Shiny app:
+  - Integrated all three plot tabs into one Shiny app, while resolving conflicts etc to ensure the integration worked
+  - Introductory tab of the app
+  - Assisted Tanvi with implementing the hover function over the heatmaps
+  - Deployment of the app to shinyapps.io
+- Writing the final report
+  - Writing of the Abstract and Conclusion, part-writing of the Introduction and Methods
+  - Collation of the final report into the Quarto file, along with BibTex referencing and CSL citation file integration
+  - General editing of the final report and supplementary materials file
+
+
+# Time spent (total approx 15 hrs)
+- Weeks 9-16: Group meetings, discussion of ideas (~6hrs total)
+- Weeks 14-16: Report writing/polishing (~5hrs total)
+- Weeks 15-16: Shiny app integration, publishing, polishing (~2hrs total)
+- Weeks 16: Assisting with hover implementation (~2hrs total)

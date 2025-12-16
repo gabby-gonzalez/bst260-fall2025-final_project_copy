@@ -1,0 +1,176 @@
+---
+title: "tanvi_scratchpaper"
+format: html
+editor: visual
+---
+
+## Quarto
+
+#2 AGE MONTHS AND EDUCATION ON HOUSEHOLD INCOME (CONTINUOUS) HEATMAP 
+
+shiny ideas: hover on tiles to show proportion of people in each category
+```{r}
+
+df <- NHANES |> 
+  filter(!is.na(AgeMonths), !is.na(Education), !is.na(HHIncomeMid), !is.na(Gender))
+
+#Heatmap of AgeMonths (Categorical), Education (Categorical), HHIncome (Continuous)
+ggplot(df, aes(x = AgeMonths, y = Education, fill = HHIncomeMid)) +
+  geom_tile() +
+  labs(title = "Age Months and Education Level on Household Income",
+       x = "Age Months", 
+       y = "Education Level", 
+       fill = "Household Income") +
+  #coord_fixed() +
+  scale_fill_gradient(low = "lightblue", high = "darkblue") +
+  theme_minimal()
+
+#Heatmap of AgeMonths (Categorical), Education (Categorical), HHIncome (Continuous) stratified by Gender
+ggplot(df, aes(x = AgeMonths, y = Education, fill = HHIncomeMid)) +
+  geom_tile() +
+  facet_wrap(~ Gender) +
+  labs(title = "Age Months and Education Level on Household Income, Stratified by Gender",
+       x = "Age Months", 
+       y = "Education Level", 
+       fill = "Household Income") +
+  #coord_fixed() +
+  scale_fill_gradient(low = "lightblue", high = "darkblue") +
+  theme_minimal()
+```
+# [DO NOT USE] 1 - PHYSICAL ACTIVITY BINARY AND BMI CONTINUOUS
+
+```{r}
+df <- NHANES |> 
+  dplyr::filter(!is.na(PhysActive), !is.na(BMI))
+
+#Boxplots yes/no - BMI continuous
+ggplot(df, aes(x = PhysActive, y = BMI, fill = PhysActive)) +
+  geom_boxplot() +
+  labs(title = "BMI by Physical Activity Status")
+
+#Facets by gender - BMI continuous
+ggplot(df, aes(x = PhysActive, y = BMI, fill = PhysActive)) +
+  geom_boxplot() +
+  facet_wrap(~ Gender) +
+  labs(title = "BMI by Physical Activity, Stratified by Gender")
+```
+
+
+
+## [DO NOT USE] 2 - PHYSICAL ACTIVITY BINARY AND BMI CATEGORICAL
+
+```{r}
+df <- NHANES |> 
+  dplyr::filter(!is.na(PhysActive), !is.na(BMI_WHO))
+
+#Bar plot
+ggplot(df, aes(x = BMI_WHO, fill = PhysActive)) +
+  geom_bar(position = "dodge") +
+  labs(title = "BMI Category Distribution by Physical Activity",
+       x = "BMI Category", y = "Count")
+
+#Stacked bar plot
+ggplot(df, aes(x = BMI_WHO, fill = PhysActive)) +
+  geom_bar(position = "fill") +
+  labs(title = "Proportion of BMI Categories by Physical Activity",
+       x = "BMI Category", y = "Proportion")
+
+#Bar plot by gender
+ggplot(df, aes(x = BMI_WHO, fill = PhysActive)) +
+  geom_bar(position = "dodge") +
+  facet_wrap(~ Gender) +
+  labs(title = "BMI Category by Physical Activity, Stratified by Gender")
+
+#Stacked bar plot by gender
+ggplot(df, aes(x = BMI_WHO, fill = PhysActive)) +
+  geom_bar(position = "fill") +
+  facet_wrap(~ Gender) +
+  labs(title = "Proportion of BMI Categories by Physical Activity",
+       x = "BMI Category", y = "Proportion")
+```
+
+# # [DO NOT USE] 3 - PHYSICAL ACTIVITY DAYS AND BMI
+
+```{r}
+df <- NHANES |>
+  dplyr::filter(!is.na(PhysActiveDays), !is.na(BMI))
+
+#Boxplots
+df |>
+  ggplot(aes(x = factor(PhysActiveDays), y = BMI, fill = factor(PhysActiveDays))) +
+  geom_boxplot() +
+  labs(
+    title = "BMI by Number of Physically Active Days per Week",
+    x = "Physically Active Days (0–7)",
+    y = "BMI"
+  ) +
+  theme_minimal() +
+  guides(fill = "none")
+
+#Boxplots by gender
+df |>
+  ggplot(aes(x = factor(PhysActiveDays), 
+             y = BMI, 
+             fill = factor(PhysActiveDays))) +
+  geom_boxplot() +
+  facet_wrap(~ Gender) +
+  labs(
+    title = "BMI by Physical Activity Days per Week, Stratified by Gender",
+    x = "Physical Activity Days (0–7)",
+    y = "BMI"
+  ) +
+  theme_minimal() +
+  guides(fill = "none")
+```
+
+# # [DO NOT USE]4 - PHYSICAL ACTIVITY DAYS AND BMI CATEGORICAL
+
+```{r}
+df <- NHANES |>
+  dplyr::filter(!is.na(PhysActiveDays), !is.na(BMI_WHO))
+
+# Bar plot: BMI categories by number of active days
+ggplot(df, aes(x = factor(PhysActiveDays), fill = BMI_WHO)) +
+  geom_bar(position = "dodge") +
+  labs(
+    title = "BMI Categories by Number of Physically Active Days per Week",
+    x = "Physically Active Days per Week (0–7)",
+    y = "Count",
+    fill = "BMI Category (WHO)"
+  ) +
+  theme_minimal()
+
+# Stacked proportion plot: BMI categories by active days
+ggplot(df, aes(x = factor(PhysActiveDays), fill = BMI_WHO)) +
+  geom_bar(position = "fill") +
+  labs(
+    title = "Proportion of BMI Categories by Number of Physically Active Days",
+    x = "Physically Active Days per Week (0–7)",
+    y = "Proportion",
+    fill = "BMI Category (WHO)"
+  ) +
+  theme_minimal()
+
+# Bar plot stratified by gender
+ggplot(df, aes(x = factor(PhysActiveDays), fill = BMI_WHO)) +
+  geom_bar(position = "dodge") +
+  facet_wrap(~ Gender) +
+  labs(
+    title = "BMI Categories by Active Days, Stratified by Gender",
+    x = "Physically Active Days per Week (0–7)",
+    y = "Count",
+    fill = "BMI Category (WHO)"
+  ) +
+  theme_minimal()
+
+# Stacked proportion plot stratified by gender
+ggplot(df, aes(x = factor(PhysActiveDays), fill = BMI_WHO)) +
+  geom_bar(position = "fill") +
+  facet_wrap(~ Gender) +
+  labs(
+    title = "Proportion of BMI Categories by Active Days, Stratified by Gender",
+    x = "Physically Active Days per Week (0–7)",
+    y = "Proportion",
+    fill = "BMI Category (WHO)"
+  ) +
+  theme_minimal()

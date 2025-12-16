@@ -1,0 +1,138 @@
+---
+title: "tanvi_plots"
+format: html
+editor: visual
+---
+
+## Quarto
+
+Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
+
+## Running Code
+
+When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
+
+```{r}
+library(NHANES)
+library(ggplot2)
+library(dplyr)
+data("NHANES")
+
+#names(NHANES)
+head(NHANES)
+#str(NHANES)
+#summary(NHANES)
+
+```
+
+#1 AGE DECADE AND EDUCATION ON HOUSEHOLD INCOME (CONTINUOUS) HEATMAP 
+
+shiny ideas: hover on tiles to show proportion of people in each category
+```{r}
+
+df <- NHANES |> 
+  filter(!is.na(AgeDecade), !is.na(Education), !is.na(HHIncomeMid), !is.na(Gender))
+
+#Heatmap of AgeDecade (Categorical), Education (Categorical), HHIncome (Continuous)
+ggplot(df, aes(x = AgeDecade, y = Education, fill = HHIncomeMid)) +
+  geom_tile() +
+  labs(title = "Age Decade and Education Level on Household Income",
+       x = "Age Decade", 
+       y = "Education Level", 
+       fill = "Household Income") +
+  coord_fixed() +
+  scale_fill_gradient(low = "lightblue", high = "darkblue") +
+  theme_minimal()
+
+#Heatmap of AgeDecade (Categorical), Education (Categorical), HHIncome (Continuous) stratified by Gender
+ggplot(df, aes(x = AgeDecade, y = Education, fill = HHIncomeMid)) +
+  geom_tile() +
+  facet_wrap(~ Gender) +
+  labs(title = "Age Decade and Education Level on Household Income, Stratified by Gender",
+       x = "Age Decade", 
+       y = "Education Level", 
+       fill = "Household Income") +
+  coord_fixed() +
+  scale_fill_gradient(low = "lightblue", high = "darkblue") +
+  theme_minimal()
+
+#Heatmap of AgeDecade (Categorical), Education (Categorical), HHIncome (Continuous) stratified by Race
+ggplot(df, aes(x = AgeDecade, y = Education, fill = HHIncomeMid)) +
+  geom_tile() +
+  facet_wrap(~ Race1) +
+  labs(title = "Age Decade and Education Level on Household Income, Stratified by Race",
+       x = "Age Decade", 
+       y = "Education Level", 
+       fill = "Household Income") +
+  coord_fixed() +
+  scale_fill_gradient(low = "lightblue", high = "darkblue") +
+  theme_minimal()
+
+#Heatmap of AgeDecade (Categorical), Education (Categorical), HHIncome (Continuous) stratified by Gender and Race
+ggplot(df, aes(x = AgeDecade, y = Education, fill = HHIncomeMid)) +
+  geom_tile() +
+  facet_wrap(~ Gender +  Race1, nrow= 2) +
+  labs(title = "Age Decade and Education Level on Household Income, Stratified by Gender and Race",
+       x = "Age Decade", 
+       y = "Education Level", 
+       fill = "Household Income") +
+  coord_fixed() +
+  scale_fill_gradient(low = "lightblue", high = "darkblue") +
+  theme_minimal()
+```
+
+#2 AGE (CONTINUOUS) AND EDUCATION ON HOUSEHOLD INCOME (CONTINUOUS) HEATMAP 
+
+shiny ideas: hover on tiles to show proportion of people in each category
+```{r}
+
+df <- NHANES |> 
+  filter(!is.na(Age), !is.na(Education), !is.na(HHIncomeMid), !is.na(Gender))
+
+#Heatmap of Age (Continuous), Education (Categorical), HHIncome (Continuous)
+ggplot(df, aes(x = Age, y = Education, fill = HHIncomeMid)) +
+  geom_tile() +
+  labs(title = "Age and Education Level on Household Income",
+       x = "Age", 
+       y = "Education Level", 
+       fill = "Household Income") +
+  scale_fill_gradient(low = "lightblue", high = "darkblue") +
+  theme_minimal()
+
+#Heatmap of Age (Continuous), Education (Categorical), HHIncome (Continuous) stratified by Gender
+ggplot(df, aes(x = Age, y = Education, fill = HHIncomeMid)) +
+  geom_tile() +
+  facet_wrap(~ Gender) +
+  labs(title = "Age and Education Level on Household Income, Stratified by Gender",
+       x = "Age", 
+       y = "Education Level", 
+       fill = "Household Income") +
+  scale_fill_gradient(low = "lightblue", high = "darkblue") +
+  theme_minimal()
+
+#Heatmap of Age (Continuous), Education (Categorical), HHIncome (Continuous) stratified by Race
+ggplot(df, aes(x = Age, y = Education, fill = HHIncomeMid)) +
+  geom_tile() +
+  facet_wrap(~ Race1) +
+  labs(title = "Age and Education Level on Household Income, Stratified by Race",
+       x = "Age", 
+       y = "Education Level", 
+       fill = "Household Income") +
+  #coord_fixed() +
+  scale_fill_gradient(low = "lightblue", high = "darkblue") +
+  theme_minimal()
+
+#Heatmap of Age (Continuous), Education (Categorical), HHIncome (Continuous) stratified by Gender and Race
+ggplot(df, aes(x = Age, y = Education, fill = HHIncomeMid)) +
+  geom_tile() +
+  facet_wrap(~ Gender +  Race1, nrow= 2) +
+  labs(title = "Age and Education Level on Household Income, Stratified by Gender and Race",
+       x = "Age", 
+       y = "Education Level", 
+       fill = "Household Income") +
+  #coord_fixed() +
+  scale_fill_gradient(low = "lightblue", high = "darkblue") +
+  theme_minimal()
+```
+```
+The `echo: false` option disables the printing of code (only output is displayed).

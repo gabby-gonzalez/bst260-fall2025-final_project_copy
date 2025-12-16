@@ -1,5 +1,7 @@
 # BST260 2025 final project for Team 4
-*Title: Exploring Shiny as an interactive visualization tool for public health data*
+
+**Title: Exploring Shiny as an interactive visualization tool for public health data**
+
 Authors: Tanvi Gaitonde, Gabrielle Gonzalez, Allen Gu, Camila Guetter
 
 # Access the published Shiny app

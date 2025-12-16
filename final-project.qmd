@@ -1,0 +1,126 @@
+---
+title: "Exploring Shiny as an interactive visualization tool for public health data"
+subtitle: "BST260 Final Project, Group 4"
+date: 2025-12-15
+author:
+  - name: Tanvi Gaitonde
+    affiliations:
+    - ref: hsph
+  - name: Gabrielle Gonzalez
+    affiliations:
+    - ref: hsph
+  - name: Allen Gu
+    affiliations:
+    - ref: hsph
+  - name: Camila Guetter
+    affiliations:
+    - ref: hsph
+affiliations:
+  - id: hsph
+    name: Harvard University
+    department: School of Public Health
+bibliography: docs/references.bib
+csl: docs/nature.csl
+abstract: "ABSTRACT: When presented with large multivariate data sets, good visualization strategies are key for effectively communicating results and highlighting patterns, associations, outliers, and other insights within the data. The purpose of this project was to develop an interactive web-based application using Shiny, a popular interactive web application and data visualization tool built with the R programming language, to facilitate exploratory data analysis of complex public health data. Using the publicly available National Health and Nutrition Examination Survey (NHANES) data set, we designed a Shiny application which demonstrates its ability to summarize and display data across many variables. Importantly, we incorporate interactivity, which allows users to dynamically explore the data by altering our figures to visualize relationships between demographic characteristics, health behaviors, and clinical outcomes, an ability unavailable to traditional static data visualization modes. Overall, this project demonstrates that interactive visualization tools can enhance exploratory analysis, improve interpretability, and promote user engagement with complex datasets. Shiny provides a flexible and accessible platform for building reproducible, interactive visualizations that can support data-driven investigation in public health research."
+format:
+  pdf: default
+---
+
+
+# 1. Introduction
+Shiny is a web application framework written for the R programming language that enables the creation of interactive data visualizations and analytical tools through a browser-based interface. Since it was first announced in 2012 [@shiny2025; @Kasprzak2021], it has significantly grown in popularity across academic, clinical, and industry settings. To roughly illustrate its rapid adoption, a search on Harvard University’s Hollis search engine for articles containing the (non-exact phrase) keywords “Shiny Web Application” or “Shiny Web App” returns 4,104 works mentioning its use between 2012-2015, then 9,566 works between 2016-2020, and 15,962 works between 2021-2025. This trend highlights Shiny’s expanding role in modern data analysis.
+
+As a data visualization tool, Shiny permits the display of charts, tables, and figures through a web application interface. Importantly, a defining feature of Shiny is its reactive context, which allows users to dynamically alter these outputs (e.g. figures) via interactive controls, such as sliders, dropdown menus, and checkboxes [@shiny2025]. The primary purpose of our project, therefore, is to explore Shiny’s capabilities for visualizing data, in particular to demonstrate the diversity in figures available for generation, and the degree of interactivity permitted to users through the reactive context.
+
+The dataset chosen to be presented is the National Health and Nutrition Examination Survey (NHANES), a nationally representative survey that collects demographic, lifestyle, dietary, and laboratory data on the non-institutionalized civilian resident population of the United States [@NHANES09_10, @NHANES11_12]. Beginning in the early 1960s, NHANES has expanded into a continuous program, with data used in thousands of studies spanning epidemiology, public health, nutrition, and clinical research. In particular, we examine adults aged 20+ years old in the NHANES R package, which includes data from the 2009-2010 and 2011-2012 survey cycles [@NHANES09_10, @NHANES11_12]. We use the unweighted dataset, allowing us to focus on exploratory analysis and data visualization without the added complexity of survey weights. While unweighted analyses do not produce estimates that are fully representative of the U.S. population, they are sufficient for demonstrating patterns and trends within the data. The subset of variables we explore are lifestyle variables (specifically, physical activity and body-mass index (BMI)), clinical parameters (systolic and diastolic blood pressure, total cholesterol, testosterone, pulse, and total urine output), and demographic variables (age, gender, race, education, and income). We selected these variables as they are diverse in variable type (continuous or categorical), allowing us to showcase Shiny’s flexibility across different visualization needs.
+
+To highlight Shiny’s data visualization and interactivity ability, we chose to display five distinct data visualizations: stacked bar plots, boxplots, jitterplots, scatterplots, and heatmaps. For the stacked bar plots, boxplots, and jitter plots, we display distributions of categorical lifestyle variables, specifically physical activity levels and both categorical and continuous BMI, with options to facet by gender. The scatterplots show continuous clinical parameter measurements plotted by age, with options to facet by race and to show or hide smoothing trend lines. Finally, the heatmaps summarize demographic variables, including age, education, and household income, with options to facet by gender and race. Overall, our project demonstrates how interactive visualization using Shiny can enhance understanding of NHANES data and provide a foundation for future analyses that utilize lifestyle, clinical, and demographic information.
+
+# 2. Methods
+
+As the purpose of this project is data exploration, rather than modeling and analyzing a specific health outcome, our wrangling and plotting methods intentionally used a breadth of covariates to showcase the various applications of the Shiny platform. We began by listing a range of all possible plot types and interactive functions that would be interesting to visualize through the covariates in the NHANES dataset. Depending on our selected covariates and target plot types, we wrangled the dataset to include inputs, outputs, and variables by which to facet. Missing variables were removed from the data set prior to plotting, and we filtered the data to include only adults aged 20+. 
+
+In parallel, each group member initially designed plots using the ggplot package in an R file, which allowed for quicker visualization and troubleshooting. Once satisfied with our plots, we integrated them into the Shiny app. Each plot consists of a user interface (UI) object (eg. \verb|ui_1|) and server object (eg. \verb|server_1|), in which we designed the app’s interactive interface and actual plot output respectively. We chose a common layout where a side panel contained interactive elements for users to select between covariates, change variable types, facet, add trendlines etc. Then, the main panel contained conditional plot outputs based on the users’ selections on the side panel. The code for our final Shiny app is fully commented, and further details about app construction may be found in code/shiny/app.R.
+ 
+## 2.1 Physical activity vs BMI (stacked bar plots, boxplots, and jitter plots)
+
+To examine associations between body mass index (BMI) and physical activity, we developed an interactive visualization module using NHANES variables BMI and BMI_WHO, and physical activity measures PhysActive (binary yes/no) and PhysActiveDays (number of days per week, 0–7). In this section, BMI can be displayed either as a continuous variable (BMI, kg/m^2) or as World Health Organization (WHO)-defined categorical groups (BMI_WHO). When continuous BMI is selected, BMI is plotted on the y-axis against physical activity on the x-axis, with users able to toggle between boxplots and jitter plots. Boxplots summarize central tendency and variability, while jitter plots display individual observations, allowing users to assess data density, outliers, and distributional overlap across activity levels.
+
+When categorical BMI is selected, the visualization automatically switches to stacked proportional bar plots, showing the relative distribution of BMI categories across levels of PhysActive or PhysActiveDays. Consistent color mappings are used across plot types to improve interpretability when switching between displays. Users may additionally facet by gender to explore sex-specific patterns. When PhysActiveDays is selected, users can include all activity levels or restrict the plot to a selected subset of days (using a checkbox feature in the left side of the plot).
+
+
+## 2.2 Clinical parameters (scatterplots)
+
+As part of the biyearly NHANES surveys, a subset of participants have laboratory measurements recorded. In order to visualize the distribution of these measurements within the population, we decided to create a plot focused on exploring continuous variables within NHANES. Base scatterplots include the option to plot the continuous clinical parameters of systolic blood pressure (mmHg), diastolic blood pressure (mmHg), total cholesterol (mmol/L), testosterone (ng/dL), pulse (bpm), urine volume (mL) by age. All scatterplots are faceted by gender and flexible y-axis scales are set to better visualize the differences between males and females. 
+
+The UI section first utilizes the sliderInput() function to create an x-axis slider for age, allowing users to specify age ranges within the data. We additionally included two checkboxInput() functions: one to overlay a smoothed trend line using a generalized additive model (GAM) and the other to allow grouping by NHANES-defined race categories (Black, Hispanic, Mexican, White, Other).
+
+
+## 2.3 Household income (heatmaps)
+
+Heatmaps are a useful tool for visualizing patterns between continuous outputs and categorical covariates. To demonstrate this, we created a heatmap where, from the NHANES dataset, the categorical (ordinal) covariates of age and education level are listed the x- and y-axes respectively. Their intersections form cells of the heatmap, within which the (continuous to $500 resolution) median household income for that cell is plotted as a hue on a blue–white color scale.
+
+Users are offered a choice to bin the age into decade bins or annual bins. Users can also choose to facet the entire plot by race and/or gender, generating up to ten distinct faceted heatmaps, each with age and education level as covariates, and median household income as the output variable.
+
+As it is difficult to determine the exact household income value from color alone, we implemented a feature where users can read the exact household income by hovering over the cell. We use Shiny’s nearPoints() function to identify the location of the user’s mouse cursor, which identifies the hovered-over cell and then feeds a display panel relevant information about that cell. This adds an additional mode of interactivity.
+
+
+## 2.4 Integration 
+
+Finally, all interactive figures were integrated into one Shiny app, complete with an introductory landing page. The app was then published on shinyapps.io, permitting public access to our work. A link to the app is at <https://allenzpgu.shinyapps.io/shiny/> (Note: as there are only 25 free active hours of hosting available per month, please close the connection to the app if it is not being used.)
+
+
+# 3. Results
+
+Our Shiny app is intended to illustrate patterns and distributions, not to test associations or temporal relationships. No formal statistical tests of association were therefore conducted as part of this study, as this was not consistent with the goal of this project, which was to showcase how interactive visualization using Shiny can enhance understanding when visualizing data. Instead, we report here trends or patterns that are visually apparent from our Shiny app, which in standard data analysis pipelines would provide the initial motivations for more rigorous analyses and testing.
+
+
+## 3.1 Physical activity and BMI (stacked bar plots, boxplots, and jitter plots)
+Across stacked bar plots, boxplots, and jitter plots (see Supp. Figs 1.1-1.12), clear patterns emerge between physical activity and BMI. In stacked bar plots using binary physical activity (Supp. Figs 1.1-1.2), individuals reporting no physical activity had a higher proportion of overweight and obese WHO BMI categories. In contrast, physically active individuals showed a relatively larger proportion of normal-weight categories. These patterns were similar after faceting by gender, though the relative proportions of BMI categories differed between males and females. When physical activity was represented as the number of active days per week (0–7) (Supp. Figs 1.3-1.4), stacked bar plots suggest a gradual shift toward lower BMI categories with increasing activity frequency. The ability to interactively select subsets of activity days revealed that this pattern was most apparent when comparing low (1–2 days) versus high (5–7 days) activity groups. Gender-faceted views showed similar trends but with differences in category proportions across days. Additionally, continuous BMI visualizations further supported these findings. Jitter plots (Supp. Figs 1.5, 1.7, 1.9, 1.11) demonstrated substantial overlap in BMI distributions across activity levels but showed lower density of high-BMI observations among more active groups. Boxplots (Supp. Figs 1.6, 1.8, 1.10, 1.12) revealed patterns of modest decreases in median BMI and interquartile ranges with higher activity levels, with comparable trends observed separately among males and females.
+
+
+## 3.2 Clinical parameters (scatterplots)
+
+Select associations in the scatterplots are illustrated in Supp. Figs 2.1-2.7. Very generally, we observe that, by age, testosterone, pulse, and urine volume appear to decrease while systolic blood pressure appears to increase. Diastolic blood pressure and total cholesterol appear to be lowest at the youngest and oldest ages. After stratifying by race, similar age-related associations are observed across groups; however, there are noticeable differences in parameter levels between racial groups. For example, after using the slider to visualize systolic blood pressure for adults ages 50-80, we observe that systolic blood pressure generally increases linearly for females while several race groups observed quadratic trends for males (Supp. Fig. 2.7).
+
+## 3.3 Household income (heatmaps)
+
+Supp. Figs 3.1-3.8 display the different heatmaps possible from the Shiny app, in particular with Supp. Fig 3.3 demonstrating the hover functionality. The general overall trend (Supp. Fig 3.1-3.2) for the covariates of age and education show higher education levels associated with higher household income, while age seems to have a weaker association with the outcome. When stratified by gender (Supp. Fig 3.3, 3.6), age groups 30-39 and 40-49 have a stronger association with higher household income in the male group, while the female group follows a similar trend as before the stratification. When faceted by race (Supp. Fig 3.3, 3.7), education level continues to show a strong positive association with household income in the Black and Hispanic groups, but a weak association in the White group. Stratifying by gender and race (Supp. Fig 3.5, 3.8) reveals, beyond trend patterns, missing data across most racial and gender groups. Data is missing for those in the Mexican/College Graduate, Black/8th Grade Education Level, Other [Race]/9-11th Grade Education Level or Lower, and Hispanic/50+ categories; in fact, the only tables that appear relatively full of data points for the age and education level covariates are the White male and White female groups.
+
+
+# 4. Discussion
+
+## 4.1 Physical activity and BMI (stacked bar plots, boxplots, and jitter plots)
+
+These visualizations illustrate how interactive plotting enhances understanding of the relationship between physical activity and BMI by allowing users to examine associations across multiple measurement scales and stratifications. Stacked bar plots using the World Health Organization BMI categories provide an intuitive overview of how the prevalence of each BMI category varies by physical activity status and frequency. The observed shift toward lower BMI categories with increasing activity is consistent with established findings reported in population-based studies [@Besson2009], while the faceted views highlight possible meaningful gender differences that might be obscured in pooled (non-stratified) analyses.
+
+Boxplots and jitter plots of continuous BMI offer complementary perspectives. Boxplots efficiently summarize central tendency and dispersion, making modest differences in medians across activity levels more readily apparent. In contrast, jitter plots expose the underlying data density, heterogeneity, and presence of extreme values (outliers), emphasizing that substantial overlap exists between activity groups despite overall trends. This distinction reinforces the importance of visualizing individual-level data (provided by each observation in the jitter plots) alongside summary statistics (provided by the boxplots) in exploratory analyses. The ability to toggle between binary and multi-level activity measures further underscores how variable definition, in this case, physical activity, can influence the interpretation of results. While binary activity captures broad contrasts, activity days per week reveal more nuanced gradients. Interactive filtering of selected days is a helpful added tool in the plots, which enhances clarity and reduces visual clutter, particularly in jitter plots. Overall, these figures demonstrate the value of Shiny’s interactivity for exploratory data analysis and for generating hypotheses about patterns and associations between BMI and physical activity in the NHANES dataset.
+
+## 4.2 Clinical parameters (scatterplots)
+
+Clinical parameters including systolic and diastolic blood pressure, testosterone, total cholesterol, pulse, and urine volume are plotted against age and faceted by gender, with options to stratify by race and add smoothinga trend lines. The ability to toggle the smoothing lines in particular is an important feature, because otherwise it is difficult to identify clear trends solely within the scatterplot, a task made even more challenging when considering stratified groups. 
+
+Previous research has identified significant differences in hypertension, cholesterol, and urine volume [@Aggarwa2021; @Tharu2017; @Adams2020] by either race, gender, or both. While we do not formally test for differences between groups within this data, we do identify similar trends, in which levels of clinical parameters appear to vary by race and gender category. Clinically-relevant future extensions of the Shiny interactive interface may include features such as reporting of the proportion of individuals outside normal ranges for each age group/race/gender combination.
+
+While we can see several apparent trends within this data, we are limited by the number of survey cycles included in the NHANES R package. In the future, it will also be useful to examine trends in clinical parameters across several survey cycles, as the presence of more data will strengthen the ability for visualization tools like ours to display clinically-significant trends.
+
+
+## 4.3 Household income (heatmaps)
+
+Heatmaps within Shiny are a natural way to view associations between several categorical and continuous variables, to observe trend differences through stratification of variables, and clear visualizations of which categories may have missing data. As previously mentioned within Results, education level seems to have a strong positive association on household income in most heatmaps except for the White group, although multivariate regression models may better infer the strength and association of the two along with the effects of gender or race. 
+
+Furthermore, future literature reviews regarding income level patterns of White Americans versus other races from 1942-2012 (the birth years of the ages represented in the NHANES dataset) may further reveal historic socioeconomic factors that have led to this trend. Age seems to have a weaker association with household income compared to education level prior to stratification, which reveals strong associations between the two within the following groups: Black females aged 40-69, Black males under 50, Hispanics over 60, Mexicans below 40 with high education levels, and White males below 60. These trends suggest a need for further multivariate modeling to infer patterns between age and household income, including the effects of gender, race, and education on the association. 
+
+Lastly, the missing data reveals a greater need for future NHANES datasets to include a larger sample size of individuals and households, especially those of non-White racial groups, to better understand trends between sociodemographic variables such as age, education level, and household income. The underrepresentation of non-White racial groups raises questions towards methods of survey recruitment that may need adjustment to recruit a more representative sample size in future years of data collection. 
+
+
+# 5. Conclusion
+
+In this project, we created a Shiny web application using the R programming language, with the objective of exploring its ability to host interactive visualizations of NHANES survey data. Using five different plot types, each manipulable using a variety of reactive controls, we demonstrate that well-implemented, interactive data visualizations can significantly aid data interpretation, pattern identification and scientific communication. They can serve as the initial point from which further rigorous analyses are performed. Because of these reasons, Shiny is an important tool that can augment traditional static visualization modes in the data scientist’s toolbox.
+
+
+
+# 6. References
+
+::: {#refs}
+:::

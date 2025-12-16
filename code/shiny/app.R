@@ -368,7 +368,7 @@ ui_3 = fluidPage(
         label   = "X-axis (Age):",
         choices = c(
           "Age (Decade)"        = "AgeDecade",
-          "Age (Continuous)"   = "Age"
+          "Age (Year)"   = "Age"
         ),
         selected = "AgeDecade"
       ),
@@ -390,12 +390,14 @@ ui_3 = fluidPage(
           "Gender and Race" = "Gender + Race1"
         ),
         selected = "none"
-      )
+      ),
+      hr(),
+      strong("Hovered data:"),
+      verbatimTextOutput("hover_info")
     ),
     
     mainPanel(
-      plotOutput("agedec_edu_hhinc_heatmap", hover = "plot_hover"),
-      verbatimTextOutput("hover_info")
+      uiOutput("agedec_edu_hhinc_heatmap_ui"),
     )
   )
 )
@@ -421,6 +423,35 @@ server_3 = function(input, output, session) {
     df
   })
   
+  output$agedec_edu_hhinc_heatmap_ui = renderUI({
+    df = plot_data()
+    
+    # How many facets?
+    n_facets = switch(
+      input$facet_3,
+      "Gender" = length(unique(df$Gender)),
+      "Race1"  = length(unique(df$Race1)),
+      "Gender + Race1" = length(unique(interaction(df$Gender, df$Race1))),
+      1
+    )
+    
+    n_cols = min(2, n_facets)
+    n_rows = ceiling(n_facets / n_cols)
+    if (n_rows == 1) {
+      height = 400
+    } else if (n_rows <= 3) {
+      height = 800
+    } else {
+      height = 1000
+    }
+    
+    plotOutput(
+      "agedec_edu_hhinc_heatmap",
+      hover  = "plot_hover",
+      height = paste0(height, "px")
+    )
+  })
+  
   output$agedec_edu_hhinc_heatmap = renderPlot({
     df = plot_data()
     
@@ -437,7 +468,7 @@ server_3 = function(input, output, session) {
         theme_minimal()
       
     } else {
-      # Age (Continuous) and Education on Household Income → Heatmap
+      # Age (Year) and Education on Household Income → Heatmap
       p = ggplot(df, aes(x = Age, y = Education, fill = HHIncomeMid)) +
         geom_tile() +
         labs(title = "Household Income",
@@ -450,13 +481,13 @@ server_3 = function(input, output, session) {
     
     # Add faceting if selected
     if (input$facet_3 == "Gender") {
-      p = p + facet_wrap(~ Gender)
+      p = p + facet_wrap(~ Gender, ncol = 2)
     }
     else if (input$facet_3 == "Race1") {
-      p = p + facet_wrap(~ Race1)
+      p = p + facet_wrap(~ Race1, ncol = 2)
     }
     else if (input$facet_3 == "Gender + Race1") {
-      p = p + facet_wrap(~ Gender + Race1, nrow = 2)
+      p = p + facet_wrap(~ Race1 + Gender, ncol = 2)
     }
     
     p
@@ -472,20 +503,37 @@ server_3 = function(input, output, session) {
       input$plot_hover,
       xvar = input$xvar_3,
       yvar = input$yvar_3,
-      threshold = 10,
+      threshold = Inf,
       maxpoints = 1,
       addDist = TRUE
     )
     
     if (nrow(hover_data) > 0) {
-      cat("Hovered Data:\n")
-      print(hover_data)
+      hover_data = hover_data |> 
+        select(-"dist_") |>
+        rename("Household income ($)"="HHIncomeMid")|>
+        rename("Age (Decade)" = any_of("AgeDecade"))
+      if (input$facet_3 == "Gender") {
+        hover_data = hover_data |> select(-"Race1")
+      }
+      else if (input$facet_3 == "Race1") {
+        hover_data = hover_data |> select(-"Race1")
+      }
+      else if (input$facet_3 == "none") {
+        hover_data = hover_data |> select(-"Race1", -"Gender")
+      }
+      cat(paste(paste0(
+            names(hover_data),
+            ": ",
+            vapply(hover_data[1, ], as.character, character(1))
+          ),collapse = "\n"
+        )
+      )
     } else {
       cat("No data near cursor.")
     }
   })
 }
-
 
 
 #########################

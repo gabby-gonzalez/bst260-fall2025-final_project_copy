@@ -15,6 +15,10 @@ You may deploy the Shiny app locally by following the following steps:
 * From the Project root directory, run in R console `runApp('code/shiny')`
 * A local instance of our Shiny app should now be deployed
 
+# A note on number of commits
+
+Each group member has exceeded the required 5 commits per member. Note however that most such edits are done via our individual Git branches, instead of the `main` branch. Please refer to those named branches to check the number of commits.
+
 # Directory map
 ```text
 ├── code/                           

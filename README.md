@@ -15,3 +15,7 @@ You may deploy the Shiny app locally by following the following steps:
 * In R console, load shiny with `library(shiny)`
 * From the Project root directory, run in R console `runApp('code/shiny')`
 * A local instance of our Shiny app should now be deployed
+
+# Miscellaneous code
+
+* Rough working can be found in the `code/rough_work` folder

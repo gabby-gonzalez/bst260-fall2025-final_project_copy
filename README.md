@@ -16,6 +16,7 @@ You may deploy the Shiny app locally by following the following steps:
 * A local instance of our Shiny app should now be deployed
 
 # Directory map
+```text
 ├── code/                           
 │   ├── rough_work/           
 │   │   └── ...            # rough work from each member of the team
@@ -32,3 +33,4 @@ You may deploy the Shiny app locally by following the following steps:
 ├── final-project.pdf      # Final Report compiled PDF
 ├── final-project.qmd      # Final Report rough Quarto file
 └── supplementary_materials.pdf    # Supplementary figures file
+```
